@@ -1,3 +1,5 @@
+## **NOTE**: This doesn't work anymore due to the Error 4xx response from the site's image server. Will try to use a different site for this.
+
 # manganato-downloader
 A simple manga downloader using the following modules:
 - Selenium
