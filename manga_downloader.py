@@ -4,11 +4,13 @@ from selenium.webdriver.common.by import By
 import requests
 import time
 import os
+import sys
 
 from compress import compress_image
 from pdf_collation import output, get_chapter_num
 
-BASE_URL = 'https://readmanganato.com/manga-em981495/chapter-30'
+BASE_URL = sys.argv[1] if len(sys.argv) > 1 else input("Please specify a manga link")
+# BASE_URL = 'https://readmanganato.com/manga-aa951409/chapter-142'
 
 # Initialize the driver instance
 driver = webdriver.Edge()
@@ -41,10 +43,12 @@ def download_chapters(auto_compress=True):
         for img_link in url_list:
             r = requests.get(img_link, headers=headers)
 
+            # Image link format sample: https://v4.mkklcdnv6tempv2.com/img/tab_4/03/01/38/em981495/chapter_1/1-o.jpg
+
             manga_name = driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[2]/a[2]").text
-            page = img_link.split('/')[-1].split('-')[0]
-            chapter = img_link.split('/')[-2]
-            chapter_num = get_chapter_num(chapter)
+            page = img_link.split('/')[-1].split('-')[0]            # Get the page number (1-o.jpg) 
+            chapter = img_link.split('/')[-2]                       # Get the chapter string for the folder name (chapter_1)
+            chapter_num = get_chapter_num(chapter)                  # Get the chapter number from the string (1)
 
             img_dir = create_dirs(manga_name, chapter, page)
 
@@ -65,6 +69,8 @@ def download_chapters(auto_compress=True):
         
         url_list = []
 
+        # PDF Conversion function
+        output()
 
         # GOTO next chapter, if available
         try:
@@ -102,4 +108,4 @@ def create_dirs(manga_name, chapter, page=None):
 
 if __name__ == "__main__":
     download_chapters()
-    output()
+    

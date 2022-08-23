@@ -1,6 +1,7 @@
 from PIL import Image
 from multiprocessing import Pool
 import os
+import shutil
 
 manga_dir = os.path.join(os.getcwd(), "Manga_raws")
 manga_name = ""
@@ -29,7 +30,7 @@ def output():
             total_chapters = len(dirs)
         # if current iteration is the chapter folder
         if root != manga_dir and dirs == []:
-            manga_name = root.split('\\')[-2]
+            manga_name = root.split('\\')[-2] 
             chapter = root.split('\\')[-1]
             chapter_num = get_chapter_num(chapter)
 
@@ -44,5 +45,7 @@ def output():
             filename = make_pdf_dirs(manga_name, chapter_num)
    
             images[0].save(filename, "PDF" ,resolution=100.0, optimize=True, quality=35, save_all=True, append_images=images[1:])
+
+            shutil.rmtree(root, ignore_errors=True)
     
     print(f"{total_chapters} chapters for {manga_name} converted to PDF.")
