@@ -9,11 +9,7 @@ import sys
 from compress import compress_image
 from pdf_collation import output, get_chapter_num
 
-<<<<<<< HEAD
 BASE_URL = sys.argv[1] if len(sys.argv) > 1 else input("Please specify a manga link..\n")
-=======
-BASE_URL = sys.argv[1] if len(sys.argv) > 1 else input("Please specify a manga link")
->>>>>>> 9d4fa5a5a9b5f3f9a6d87b4b525a9233261cd1f5
 # BASE_URL = 'https://readmanganato.com/manga-aa951409/chapter-142'
 
 # Initialize the driver instance
@@ -37,12 +33,7 @@ def download_chapters(auto_compress=True):
         images = soup.findAll('img')
         url_list = [img['src'] for img in images if img['src'].endswith(".jpg")]
 
-<<<<<<< HEAD
-        manga_name = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/div[4]/h1").text.split(' ')
-        manga_name = ' '.join(manga_name[0:manga_name.index('CHAPTER')])
-=======
         manga_name = ""
->>>>>>> 9d4fa5a5a9b5f3f9a6d87b4b525a9233261cd1f5
         chapter_num = ""
 
         # downloads the images into jpg files and saves them into a folder
@@ -54,10 +45,6 @@ def download_chapters(auto_compress=True):
 
             # Image link format sample: https://v4.mkklcdnv6tempv2.com/img/tab_4/03/01/38/em981495/chapter_1/1-o.jpg
 
-<<<<<<< HEAD
-=======
-            manga_name = driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[2]/a[2]").text
->>>>>>> 9d4fa5a5a9b5f3f9a6d87b4b525a9233261cd1f5
             page = img_link.split('/')[-1].split('-')[0]            # Get the page number (1-o.jpg) 
             chapter = img_link.split('/')[-2]                       # Get the chapter string for the folder name (chapter_1)
             chapter_num = get_chapter_num(chapter)                  # Get the chapter number from the string (1)
@@ -88,7 +75,6 @@ def download_chapters(auto_compress=True):
         try:
             # click the NEXT CHAPTER button
             next_xpath = driver.find_element(By.XPATH, "/html/body/div[1]/div[6]/div[1]/div/a[2]")
-<<<<<<< HEAD
             if next_xpath.text == "NEXT CHAPTER":
                 next_xpath.click()
                 time.sleep(3)
@@ -98,19 +84,6 @@ def download_chapters(auto_compress=True):
         except Exception as e:
             print(f"All chapters downloaded for {manga_name}!")
         finally:
-=======
-
-            # if the next button does not exist or cannot be found
-        except Exception as e:
-            next_xpath = driver.find_element(By.XPATH, "/html/body/div[1]/div[6]/div[1]/div/a")
-
-        if next_xpath.text == "NEXT CHAPTER":
-            next_xpath.click()
-            time.sleep(3)
-            CURRENT_URL = driver.current_url
-        else:
-            print(f"All chapters downloaded for {manga_name}!")
->>>>>>> 9d4fa5a5a9b5f3f9a6d87b4b525a9233261cd1f5
             driver.close()
             break
 
