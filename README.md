@@ -4,7 +4,7 @@ A simple manga downloader using the following modules:
 - BeautifulSoup4
 - Pillow, the Python Imaging Library (PIL)
 
-This project was initially created only for manganato(.)com, I will try to fully automate this one and add support for more sites.
+This project was mainly created only for personal use as my SO wanted to read manga on her Kindle. The only site this supports is manganato.com.
 
 ## Instructions:
 1. Go to https://manganato.com/, search for your favorite manga
